@@ -1,11 +1,11 @@
 [gd_scene load_steps=56 format=2]
 
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/Bush.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/GrassBackground.png" type="Texture" id=3]
 [ext_resource path="res://World/DirtTileset.png" type="Texture" id=4]
 [ext_resource path="res://World/CliffTileset.png" type="Texture" id=5]
 [ext_resource path="res://World/Grass.tscn" type="PackedScene" id=6]
+[ext_resource path="res://World/World.gd" type="Script" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "DirtTileset.png 0"
@@ -482,11 +482,9 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 0/z_index = 0
 
 [node name="World" type="YSort"]
+script = ExtResource( 7 )
 
 [node name="YSort" type="YSort" parent="."]
-
-[node name="Player" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 120, 8 )
 
 [node name="Bushes" type="YSort" parent="YSort"]
 
@@ -551,3 +549,9 @@ cell_y_sort = true
 collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 0, 0, 3, 9, 0, 3, 65536, 0, 65539, 65539, 0, 3, 65542, 0, 3, 65545, 0, 65539, 131072, 0, 262148, 131073, 0, 196609, 131074, 0, 196609, 131075, 0, 196615, 131078, 0, 196612, 131079, 0, 196609, 131080, 0, 196609, 131081, 0, 262151, 196608, 0, 65539, 196617, 0, 65539, 262144, 0, 196612, 262145, 0, 196609, 262146, 0, 196609, 262147, 0, 196609, 262148, 0, 196609, 262149, 0, 196609, 262150, 0, 196609, 262151, 0, 196609, 262152, 0, 196609, 262153, 0, 196615 )
+
+[node name="Player1pos" type="Position2D" parent="."]
+position = Vector2( 256.733, 39.6426 )
+
+[node name="Player2pos" type="Position2D" parent="."]
+position = Vector2( 64.6553, 38.6988 )

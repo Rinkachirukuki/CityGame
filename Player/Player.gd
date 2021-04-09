@@ -22,6 +22,7 @@ func _ready():
 	animationTree.active = true
 
 func _process(delta):
+	
 	match state:
 		MOVE:
 			move_state(delta)
@@ -29,6 +30,9 @@ func _process(delta):
 			pass
 		ATTACK:
 			attack_state(delta)
+
+remote func _set_position(pos):
+	global_transform.origin = pos
 
 func move_state(delta):
 	var input_vector = Vector2.ZERO
@@ -46,9 +50,11 @@ func move_state(delta):
 		animationState.travel("Idle")
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
-	print(velocity)
+	if input_vector != Vector2():
+			if is_network_master():
+				velocity = move_and_slide(velocity)
+			rpc_unreliable("_set_position",global_transform.origin)
 	
-	velocity = move_and_slide(velocity)
 	if Input.is_action_just_pressed("attack"):
 		state = ATTACK
 
@@ -58,4 +64,3 @@ func attack_state(delta):
 
 func attack_animation_finished():
 	state = MOVE
-
