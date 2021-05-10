@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Server_display.gd" type="Script" id=1]
+
+[node name="Server_display" type="Label"]
+anchor_right = 1.0
+margin_right = -99.9999
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+text = "N/A: 000.000.000"
+align = 1
+valign = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="b_join" type="Button" parent="." groups=[
+"Server_display",
+]]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -80.0001
+margin_right = -5.00006
+text = "JOIN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="b_join" to="." method="_on_b_join_pressed"]
