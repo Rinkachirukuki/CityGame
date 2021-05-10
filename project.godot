@@ -16,12 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="City Game"
-run/main_scene="res://Lobby/Lobby.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://Network/Network_setup.tscn"
 
 [autoload]
 
-Globals="*res://globals.gd"
+Network="*res://Network/network.gd"
+Global="*res://Global.gd"
+Players="*res://Players.tscn"
 
 [display]
 
