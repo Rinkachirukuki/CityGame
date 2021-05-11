@@ -10,10 +10,10 @@ func _ready():
 	server_ip_text_edit.hide()
 
 
-func _on_Server_listener_new_server(server_info):
+func _on_Server_listener_new_server(game_info):
 	var server_node = Global.instance_node(load("res://Server_browser/Server_display.tscn"), server_container)
-	server_node.text = "%s - %s" % [server_info.ip, server_info.name]
-	server_node.ip_address = str(server_info.ip)
+	server_node.text = "%s - %s" % [game_info.ip, game_info.name]
+	server_node.ip_address = str(game_info.ip)
 
 
 func _on_Server_listener_remove_server(server_ip):

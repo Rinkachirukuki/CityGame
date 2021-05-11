@@ -26,10 +26,12 @@ func _player_disconnected(id) -> void:
 		Players.get_node(str(id)).queue_free()
 
 func _on_b_Create_server_pressed():
-	multiplayer_config_ui.hide()
-	Network.create_server()
-	
-	instance_player(get_tree().get_network_unique_id())
+	if username.text != "":
+		Network.current_player_username = username.text
+		
+		multiplayer_config_ui.hide()
+		Network.create_server()
+		instance_player(get_tree().get_network_unique_id())
 
 
 func _on_b_Join_server_pressed():
