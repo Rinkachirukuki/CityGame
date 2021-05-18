@@ -1,9 +1,8 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Player/Human.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Hitboxes_and_Hurtboxes/Hitbox.tscn" type="PackedScene" id=3]
-
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 5.05945
@@ -555,8 +554,13 @@ graph_offset = Vector2( 114.13, 52.822 )
 [sub_resource type="CapsuleShape2D" id=35]
 height = 5.0
 
-[node name="Player" type="KinematicBody2D"]
-collision_layer = 2
+[sub_resource type="RectangleShape2D" id=36]
+extents = Vector2( 4.376, 9.59071 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"Net",
+"Player",
+]]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -609,6 +613,25 @@ disabled = true
 [node name="Network_tick_rate" type="Timer" parent="."]
 wait_time = 0.03
 autostart = true
+
+[node name="Reload_timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="Hit_timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="Shoot_point" type="Position2D" parent="."]
+position = Vector2( -3.8147e-06, -10.5231 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2( 0, -7.01538 )
+shape = SubResource( 36 )
 [connection signal="timeout" from="Network_tick_rate" to="." method="_on_Network_tick_rate_timeout"]
+[connection signal="timeout" from="Reload_timer" to="." method="_on_Reload_timer_timeout"]
+[connection signal="timeout" from="Hit_timer" to="." method="_on_Hit_timer_timeout"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 
 [editable path="HitboxPivot/Hitbox"]

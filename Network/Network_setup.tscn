@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Network/Network_setup.gd" type="Script" id=1]
+[ext_resource path="res://Network/UI.gd" type="Script" id=2]
 
 [node name="Network_setup" type="Control"]
 anchor_right = 1.0
@@ -59,9 +60,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource( 2 )
 
-[node name="l_Device_ip_address" type="Label" parent="CanvasLayer"]
+[node name="l_Device_ip_address" type="Label" parent="UI"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -72,5 +74,36 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="b_Start_game" type="Button" parent="UI"]
+margin_left = 13.8378
+margin_top = 14.2245
+margin_right = 145.838
+margin_bottom = 52.2245
+text = "START GAME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spawn_locations" type="Node" parent="."]
+
+[node name="1" type="Position2D" parent="Spawn_locations"]
+position = Vector2( 99.7806, 153.235 )
+
+[node name="2" type="Position2D" parent="Spawn_locations"]
+position = Vector2( 374.177, 149.671 )
+
+[node name="3" type="Position2D" parent="Spawn_locations"]
+position = Vector2( 669.956, 149.671 )
+
+[node name="4" type="Position2D" parent="Spawn_locations"]
+position = Vector2( 694.901, 489.994 )
+
+[node name="5" type="Position2D" parent="Spawn_locations"]
+position = Vector2( 404.468, 493.558 )
+
+[node name="6" type="Position2D" parent="Spawn_locations"]
+position = Vector2( 110.471, 489.994 )
 [connection signal="pressed" from="Multiplayer_configure/b_Create_server" to="." method="_on_b_Create_server_pressed"]
 [connection signal="pressed" from="Multiplayer_configure/b_Join_server" to="." method="_on_b_Join_server_pressed"]
+[connection signal="pressed" from="UI/b_Start_game" to="." method="_on_b_Start_game_pressed"]

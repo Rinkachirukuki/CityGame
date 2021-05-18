@@ -30,8 +30,9 @@ func _on_b_Manual_setup_pressed():
 		manual_setup_button.text = "Exit setup"
 		server_container.hide()
 		server_ip_text_edit.call_deferred("grab_focus")
+		server_ip_text_edit.text = Network.ip_address
 	else:
-		server_ip_text_edit = ""
+		server_ip_text_edit.text = ""
 		server_ip_text_edit.hide()
 		manual_setup_button.text = "Manual setup"
 		server_container.show()

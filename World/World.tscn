@@ -1,11 +1,10 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://World/Bush.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/GrassBackground.png" type="Texture" id=3]
 [ext_resource path="res://World/DirtTileset.png" type="Texture" id=4]
 [ext_resource path="res://World/CliffTileset.png" type="Texture" id=5]
 [ext_resource path="res://World/Grass.tscn" type="PackedScene" id=6]
-[ext_resource path="res://World/World.gd" type="Script" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "DirtTileset.png 0"
@@ -482,29 +481,28 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 0/z_index = 0
 
 [node name="World" type="YSort"]
-script = ExtResource( 7 )
 
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Bushes" type="YSort" parent="YSort"]
 
 [node name="Bush" parent="YSort/Bushes" instance=ExtResource( 2 )]
-position = Vector2( 40, 120 )
+position = Vector2( 482.499, 201.425 )
 
 [node name="Bush2" parent="YSort/Bushes" instance=ExtResource( 2 )]
-position = Vector2( 160, 136 )
+position = Vector2( 276.131, 158.692 )
 
 [node name="Bush3" parent="YSort/Bushes" instance=ExtResource( 2 )]
-position = Vector2( 224, 120 )
+position = Vector2( 268.05, 252.817 )
 
 [node name="Bush4" parent="YSort/Bushes" instance=ExtResource( 2 )]
-position = Vector2( 64, 120 )
+position = Vector2( 153.434, 382.963 )
 
 [node name="Bush5" parent="YSort/Bushes" instance=ExtResource( 2 )]
-position = Vector2( 48, 128 )
+position = Vector2( 391.054, 312.208 )
 
 [node name="Bush6" parent="YSort/Bushes" instance=ExtResource( 2 )]
-position = Vector2( 24, 139.5 )
+position = Vector2( 51.3642, 160.19 )
 
 [node name="Grass" type="YSort" parent="YSort"]
 position = Vector2( 20.7887, 12.5992 )
@@ -513,10 +511,10 @@ position = Vector2( 20.7887, 12.5992 )
 position = Vector2( 68.6904, 99.5013 )
 
 [node name="Grass2" parent="YSort/Grass" instance=ExtResource( 6 )]
-position = Vector2( 109.638, 26.4259 )
+position = Vector2( 532.115, 277.376 )
 
 [node name="Grass3" parent="YSort/Grass" instance=ExtResource( 6 )]
-position = Vector2( 155.625, 27.0559 )
+position = Vector2( 246.394, 350.087 )
 
 [node name="Grass4" parent="YSort/Grass" instance=ExtResource( 6 )]
 position = Vector2( 85.0694, 3.74735 )
@@ -525,7 +523,7 @@ position = Vector2( 85.0694, 3.74735 )
 position = Vector2( 178.304, 3.74735 )
 
 [node name="Grass6" parent="YSort/Grass" instance=ExtResource( 6 )]
-position = Vector2( 107.748, 66.1134 )
+position = Vector2( 356.028, 99.4844 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.875, 0.875 )
@@ -533,7 +531,10 @@ z_index = -1
 texture = ExtResource( 3 )
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 368, 208 )
+region_rect = Rect2( 0, 0, 914, 689.078 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="DirtTileMap" type="TileMap" parent="."]
 z_index = -2
@@ -548,10 +549,3 @@ cell_tile_origin = 1
 cell_y_sort = true
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( 0, 0, 3, 9, 0, 3, 65536, 0, 65539, 65539, 0, 3, 65542, 0, 3, 65545, 0, 65539, 131072, 0, 262148, 131073, 0, 196609, 131074, 0, 196609, 131075, 0, 196615, 131078, 0, 196612, 131079, 0, 196609, 131080, 0, 196609, 131081, 0, 262151, 196608, 0, 65539, 196617, 0, 65539, 262144, 0, 196612, 262145, 0, 196609, 262146, 0, 196609, 262147, 0, 196609, 262148, 0, 196609, 262149, 0, 196609, 262150, 0, 196609, 262151, 0, 196609, 262152, 0, 196609, 262153, 0, 196615 )
-
-[node name="Player1pos" type="Position2D" parent="."]
-position = Vector2( 256.733, 39.6426 )
-
-[node name="Player2pos" type="Position2D" parent="."]
-position = Vector2( 64.6553, 38.6988 )

@@ -104,11 +104,12 @@ __meta__ = {
 [node name="Searching_for_servers" type="Label" parent="background_panel/VBoxContainer"]
 margin_right = 748.0
 margin_bottom = 14.0
-text = "Searching for servers..."
+text = "Searching for servers."
 align = 1
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="background_panel/VBoxContainer/Searching_for_servers"]
+autoplay = "Searching"
 anims/Searching = SubResource( 1 )
 
 [node name="Server_browser_label" type="Label" parent="background_panel"]
