@@ -33,8 +33,10 @@ func _ready():
 						current_player_for_spawn_location_number = player
 	else:
 		start_game.hide()
+	
+	game_ready_check()
 
-func _process(delta):
+func game_ready_check():
 	if get_tree().network_peer != null:
 		if get_tree().get_network_connected_peers().size() >= 1 and get_tree().is_network_server():
 			start_game.show()
@@ -45,6 +47,8 @@ func _player_connected(id) -> void:
 	print("Player " + str(id) + " has connected")
 	
 	instance_player(id)
+	
+	game_ready_check()
 
 func _player_disconnected(id) -> void:
 	print("Player " + str(id) + " has disconnected")
@@ -52,6 +56,8 @@ func _player_disconnected(id) -> void:
 	if Persistent_nodes.has_node(str(id)):
 		Persistent_nodes.get_node(str(id)).username_text_instance.queue_free()
 		Persistent_nodes.get_node(str(id)).queue_free()
+	
+	game_ready_check()
 
 func _on_b_Create_server_pressed():
 	if username.text != "":
@@ -85,11 +91,15 @@ func _on_b_Start_game_pressed():
 	rpc("switch_to_game")
 
 sync func switch_to_game() -> void:
-	var game = load("res://Game/Game.tscn")
+	
+	var world = load("res://World/World.tscn")
 	
 	for child in Persistent_nodes.get_children():
 		if child.is_in_group("Player"):
 			child.update_god_mode(false)
 	
-	game_instance = Global.instance_node_at_location(game, Persistent_nodes,Vector2.ZERO)
+	Global.world = Global.instance_node_at_location(world, Persistent_nodes,Vector2.ZERO)
+	
+	
+	get_tree().change_scene("res://Game/Game.tscn")
 

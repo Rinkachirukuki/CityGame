@@ -1,7 +1,11 @@
 extends Label
 
 sync func return_to_lobby():
+	
+	Global.world.queue_free()
+	
 	get_tree().change_scene("res://Network/Network_setup.tscn")
+	
 
 func _ready():
 	pass # Replace with function body.

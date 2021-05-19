@@ -52,6 +52,8 @@ func _server_disconnected() -> void:
 	
 	reset_network_connection()
 	
+	#get_tree().change_scene("res://Network/Network_setup.tscn")
+	
 	if Global.ui != null:
 		var prompt = Global.instance_node(load("res://UI/Simple_prompt.tscn"), Global.ui)
 		prompt.set_text("Disconnected from server")
@@ -62,6 +64,8 @@ func _connection_failed():
 			child.queue_free()
 	
 	reset_network_connection()
+	
+	get_tree().change_scene("res://Network/Network_setup.tscn")
 	
 	if Global.ui != null:
 		var prompt = Global.instance_node(load("res://UI/Simple_prompt.tscn"), Global.ui)

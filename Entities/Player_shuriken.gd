@@ -49,7 +49,7 @@ func _on_Destroy_timer_timeout():
 
 func _on_Hitbox_area_entered(area):
 	if get_tree().has_network_peer() and get_tree().is_network_server():
-		if area.is_in_group("Player") and int(area.get_parent().name) != player_owner:
+		if area.get_parent().is_in_group("Player") and int(area.get_parent().name) != player_owner:
 			area.get_parent().rpc("hit_by_damager", damage)
 			rpc("destroy")
 		elif(area.is_in_group("Map_object")):
@@ -58,3 +58,7 @@ func _on_Hitbox_area_entered(area):
 		for g in area.get_groups():
 			print(str(g))
 		
+
+
+func _on_User_Destroy_timer_timeout():
+	queue_free()

@@ -455,7 +455,7 @@ graph_offset = Vector2( 114.13, 52.822 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=34]
 
 [sub_resource type="RectangleShape2D" id=35]
-extents = Vector2( 4.376, 9.59071 )
+extents = Vector2( 4.96367, 11.021 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "Net",
@@ -520,7 +520,7 @@ position = Vector2( -3.8147e-06, -10.5231 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=[
 "Player",
 ]]
-position = Vector2( 0, -7.01538 )
+position = Vector2( 0, -8.19655 )
 shape = SubResource( 35 )
 [connection signal="timeout" from="Network_tick_rate" to="." method="_on_Network_tick_rate_timeout"]
 [connection signal="timeout" from="Reload_timer" to="." method="_on_Reload_timer_timeout"]

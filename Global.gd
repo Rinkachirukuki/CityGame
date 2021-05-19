@@ -2,6 +2,7 @@ extends Node
 
 var player_master = null
 var ui = null
+var world = null
 
 var alive_players = []
 

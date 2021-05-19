@@ -91,7 +91,7 @@ __meta__ = {
 position = Vector2( 99.7806, 153.235 )
 
 [node name="2" type="Position2D" parent="Spawn_locations"]
-position = Vector2( 374.177, 149.671 )
+position = Vector2( 401.895, 147.151 )
 
 [node name="3" type="Position2D" parent="Spawn_locations"]
 position = Vector2( 669.956, 149.671 )
@@ -100,7 +100,7 @@ position = Vector2( 669.956, 149.671 )
 position = Vector2( 694.901, 489.994 )
 
 [node name="5" type="Position2D" parent="Spawn_locations"]
-position = Vector2( 404.468, 493.558 )
+position = Vector2( 399.428, 493.558 )
 
 [node name="6" type="Position2D" parent="Spawn_locations"]
 position = Vector2( 110.471, 489.994 )
