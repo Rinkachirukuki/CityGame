@@ -19,22 +19,22 @@ script = ExtResource( 3 )
 [node name="Spawn_locations" type="Node2D" parent="."]
 
 [node name="1" type="Position2D" parent="Spawn_locations"]
-position = Vector2( 129.479, 93.4388 )
+position = Vector2( 90.479, 92.4388 )
 
 [node name="2" type="Position2D" parent="Spawn_locations"]
-position = Vector2( 409.796, 85.4297 )
+position = Vector2( 748.796, 104.43 )
 
 [node name="3" type="Position2D" parent="Spawn_locations"]
-position = Vector2( 688.777, 93.4388 )
+position = Vector2( 717.47, 751.587 )
 
 [node name="4" type="Position2D" parent="Spawn_locations"]
-position = Vector2( 137.488, 541.945 )
+position = Vector2( 122.369, 757.391 )
 
 [node name="5" type="Position2D" parent="Spawn_locations"]
-position = Vector2( 440.497, 545.95 )
+position = Vector2( 111.722, 436.357 )
 
 [node name="6" type="Position2D" parent="Spawn_locations"]
-position = Vector2( 726.153, 547.284 )
+position = Vector2( 719.546, 438.738 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 4 )
@@ -46,6 +46,7 @@ script = ExtResource( 6 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 

@@ -11,6 +11,8 @@ onready var username = $Multiplayer_configure/le_username
 onready var device_ip_address = $UI/l_Device_ip_address
 onready var start_game = $UI/b_Start_game
 
+var game_instance
+
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
@@ -83,9 +85,11 @@ func _on_b_Start_game_pressed():
 	rpc("switch_to_game")
 
 sync func switch_to_game() -> void:
-	get_tree().change_scene("res://Game/Game.tscn")
+	var game = load("res://Game/Game.tscn")
 	
 	for child in Persistent_nodes.get_children():
 		if child.is_in_group("Player"):
 			child.update_god_mode(false)
+	
+	game_instance = Global.instance_node_at_location(game, Persistent_nodes,Vector2.ZERO)
 
