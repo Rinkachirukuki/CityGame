@@ -540,7 +540,7 @@ xfade_time = 0.01
 
 [sub_resource type="AnimationNodeStateMachine" id=33]
 states/Attack/node = SubResource( 18 )
-states/Attack/position = Vector2( 470, 188.822 )
+states/Attack/position = Vector2( 470, 196.822 )
 states/Idle/node = SubResource( 23 )
 states/Idle/position = Vector2( 470, 102 )
 states/Run/node = SubResource( 28 )
@@ -567,7 +567,7 @@ script = ExtResource( 2 )
 position = Vector2( 0, -16 )
 texture = ExtResource( 1 )
 hframes = 36
-frame = 33
+frame = 30
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708
@@ -593,11 +593,11 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 34 )
 parameters/Attack/blend_position = Vector2( 0.27, 0.037931 )
 parameters/Idle/blend_position = Vector2( -0.00309122, 0 )
-parameters/Run/blend_position = Vector2( 0, 0 )
+parameters/Run/blend_position = Vector2( -0.00297916, 0.00635839 )
 
 [node name="HitboxPivot" type="Position2D" parent="."]
 position = Vector2( 0, -15 )
-rotation = 4.71239
+rotation = 1.5708
 
 [node name="Hitbox" parent="HitboxPivot" instance=ExtResource( 3 )]
 position = Vector2( 13, 0 )
@@ -606,7 +606,6 @@ collision_mask = 8
 
 [node name="CollisionShape2D" parent="HitboxPivot/Hitbox" index="0"]
 shape = SubResource( 35 )
-disabled = true
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -615,8 +614,10 @@ wait_time = 0.03
 autostart = true
 
 [node name="Reload_timer" type="Timer" parent="."]
-wait_time = 0.3
 one_shot = true
+
+[node name="Rate_of_fire_Timer" type="Timer" parent="."]
+wait_time = 0.04
 
 [node name="Hit_timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -631,6 +632,7 @@ position = Vector2( 0, -7.01538 )
 shape = SubResource( 36 )
 [connection signal="timeout" from="Network_tick_rate" to="." method="_on_Network_tick_rate_timeout"]
 [connection signal="timeout" from="Reload_timer" to="." method="_on_Reload_timer_timeout"]
+[connection signal="timeout" from="Rate_of_fire_Timer" to="." method="_on_Rate_of_fire_Timer_timeout"]
 [connection signal="timeout" from="Hit_timer" to="." method="_on_Hit_timer_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 

@@ -13,13 +13,17 @@ onready var animationState = animationTree.get("parameters/playback")
 
 onready var tween = $Tween
 onready var reload_timer = $Reload_timer
+onready var rate_of_fire_timer = $Rate_of_fire_Timer
 onready var hit_timer = $Hit_timer
 onready var shoot_point = $Shoot_point
 
-
 var can_shoot = true
 var god_mode = true
+var max_ammo = 3
+var ammo = max_ammo
+
 var is_reloading = false
+var throw_delay = false
 
 var player_shuriken = load("res://Entities/Player_shuriken.tscn")
 var username_text = load("res://Player/Username/Username_text.tscn")
@@ -32,13 +36,8 @@ puppet var puppet_position = Vector2(0,0) setget puppet_position_set
 puppet var puppet_velocity = Vector2()
 puppet var puppet_username = "" setget puppet_username_set
 
-var state = MOVE
+puppet var puppet_input_vector = Vector2.ZERO
 
-enum {
-	MOVE,
-	ROLL,
-	ATTACK
-}
 
 func _ready():
 	get_tree().connect("network_peer_connected",self,"_network_peer_connected")
@@ -62,22 +61,39 @@ func _process(delta):
 	if username_text_instance != null:
 		username_text_instance.name = "username" + name
 	
-	if get_tree().has_network_peer():
-		if is_network_master():
-			match state:
-				MOVE:
-					move_state(delta)
-				ROLL:
-					pass
-				ATTACK:
-					attack_state(delta)
-			if Input.is_action_just_pressed("attack 2") and can_shoot and not is_reloading:
+	if get_tree().has_network_peer() and is_network_master():
+		move_state(delta)
+		if can_shoot and not is_reloading and not throw_delay:
+			if Input.is_action_pressed("FirstAttack"):
 				rpc("instance_shuriken", get_tree().get_network_unique_id())
+				
+				ammo -= 1
+				
+				throw_delay = true
+				rate_of_fire_timer.start()
+				
+				if ammo <= 0:
+					is_reloading = true
+					reload_timer.start()
+			elif Input.is_action_pressed("SecondAttack"):
+				rpc("instance_some_shurikens", get_tree().get_network_unique_id())
+				
+				ammo -= 3
+				
 				is_reloading = true
 				reload_timer.start()
+	else:
+		if not tween.is_active():
+			move_and_slide(puppet_velocity)
+		
+		if puppet_input_vector != Vector2.ZERO:
+			animationTree.set("parameters/Idle/blend_position", puppet_input_vector)
+			animationTree.set("parameters/Run/blend_position", puppet_input_vector)
+			animationTree.set("parameters/Attack/blend_position", puppet_input_vector)
+			animationState.travel("Run")
 		else:
-			if not tween.is_active():
-				move_and_slide(puppet_velocity)
+			animationState.travel("Idle")
+	
 	
 	if get_tree().has_network_peer():
 		if get_tree().is_network_server() and hp <= 0:
@@ -85,6 +101,7 @@ func _process(delta):
 				username_text_instance.visible = false
 			
 			rpc("destroy")
+
 
 func _on_Network_tick_rate_timeout():
 	if get_tree().has_network_peer():
@@ -97,6 +114,28 @@ sync func instance_shuriken(id):
 	player_shuriken_instance.name = "Shuriken" + name + str(Network.networked_object_name_index)
 	player_shuriken_instance.set_network_master(id)
 	player_shuriken_instance.player_rotation = shoot_point.get_local_mouse_position().angle()
+	player_shuriken_instance.player_owner = id
+	Network.networked_object_name_index += 1
+
+sync func instance_some_shurikens(id):
+	var player_shuriken_instance = Global.instance_node_at_location(player_shuriken, Persistent_nodes,shoot_point.global_position)
+	player_shuriken_instance.name = "Shuriken" + name + str(Network.networked_object_name_index)
+	player_shuriken_instance.set_network_master(id)
+	player_shuriken_instance.player_rotation = shoot_point.get_local_mouse_position().angle() + 0.1
+	player_shuriken_instance.player_owner = id
+	Network.networked_object_name_index += 1
+	
+	player_shuriken_instance = Global.instance_node_at_location(player_shuriken, Persistent_nodes,shoot_point.global_position)
+	player_shuriken_instance.name = "Shuriken" + name + str(Network.networked_object_name_index)
+	player_shuriken_instance.set_network_master(id)
+	player_shuriken_instance.player_rotation = shoot_point.get_local_mouse_position().angle()
+	player_shuriken_instance.player_owner = id
+	Network.networked_object_name_index += 1
+	
+	player_shuriken_instance = Global.instance_node_at_location(player_shuriken, Persistent_nodes,shoot_point.global_position)
+	player_shuriken_instance.name = "Shuriken" + name + str(Network.networked_object_name_index)
+	player_shuriken_instance.set_network_master(id)
+	player_shuriken_instance.player_rotation = shoot_point.get_local_mouse_position().angle() - 0.1
 	player_shuriken_instance.player_owner = id
 	Network.networked_object_name_index += 1
 
@@ -129,10 +168,15 @@ func _network_peer_connected(id):
 
 func move_state(delta):
 	var input_vector = Vector2.ZERO
+	
 	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	
 	input_vector = input_vector.normalized()
+	
+	if get_tree().has_network_peer():
+		if is_network_master():
+			rset("puppet_input_vector", input_vector)
 	
 	if input_vector != Vector2.ZERO:
 		animationTree.set("parameters/Idle/blend_position", input_vector)
@@ -140,25 +184,19 @@ func move_state(delta):
 		animationTree.set("parameters/Attack/blend_position", input_vector)
 		animationState.travel("Run")
 		
+		
 		velocity = velocity.move_toward(MAX_SPEED * input_vector, ACCELERATION * delta)
 	else:
 		animationState.travel("Idle")
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
 	velocity = move_and_slide(velocity)
-	
-	if Input.is_action_just_pressed("attack"):
-		state = ATTACK
 
-func attack_state(delta):
-	velocity = Vector2.ZERO
-	animationState.travel("Attack")
-
-func attack_animation_finished():
-	state = MOVE
 
 func _on_Reload_timer_timeout():
 	is_reloading = false
+	ammo = max_ammo
+
 
 func puppet_hp_set(new_value):
 	puppet_hp = new_value
@@ -231,3 +269,7 @@ func _exit_tree():
 	if get_tree().has_network_peer():
 		if is_network_master():
 			Global.player_master = null
+
+
+func _on_Rate_of_fire_Timer_timeout():
+	throw_delay = false

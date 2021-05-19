@@ -39,8 +39,6 @@ func _process(delta):
 		else:
 			start_game.hide()
 
-
-
 func _player_connected(id) -> void:
 	print("Player " + str(id) + " has connected")
 	
@@ -80,9 +78,6 @@ func instance_player(id) -> void:
 	player_instance.set_network_master(id)
 	player_instance.username = username.text
 	current_spawn_location_instance_number += 1
-
-
-
 
 func _on_b_Start_game_pressed():
 	rpc("switch_to_game")
