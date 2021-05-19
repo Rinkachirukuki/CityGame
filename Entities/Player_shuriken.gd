@@ -44,6 +44,17 @@ func puppet_position_set(new_value) -> void:
 	global_position = puppet_position
 
 func _on_Destroy_timer_timeout():
-	if get_tree().has_network_peer():
-		if get_tree().is_network_server():
+	if get_tree().has_network_peer() and get_tree().is_network_server():
+		rpc("destroy")
+
+func _on_Hitbox_area_entered(area):
+	if get_tree().has_network_peer() and get_tree().is_network_server():
+		if area.is_in_group("Player") and int(area.get_parent().name) != player_owner:
+			area.get_parent().rpc("hit_by_damager", damage)
 			rpc("destroy")
+		elif(area.is_in_group("Map_object")):
+			rpc("destroy")
+		
+		for g in area.get_groups():
+			print(str(g))
+		

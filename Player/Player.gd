@@ -219,14 +219,7 @@ func _on_Hit_timer_timeout():
 func update_god_mode(god):
 	god_mode = god
 
-func _on_Hitbox_area_entered(area):
-	
-	if get_tree().has_network_peer():
-		if get_tree().is_network_server():
-			if area.is_in_group("Player_damager") and area.get_parent().player_owner != int(name):
-				rpc("hit_by_damager", area.get_parent().damage)
-				
-				area.get_parent().rpc("destroy")
+
 
 sync func hit_by_damager(damage):
 	if not god_mode:

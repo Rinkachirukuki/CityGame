@@ -1,3 +1,5 @@
 [gd_scene format=2]
 
 [node name="Persistent_nodes" type="YSort"]
+
+[node name="Players" type="YSort" parent="."]

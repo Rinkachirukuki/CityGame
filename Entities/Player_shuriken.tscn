@@ -27,7 +27,6 @@ tracks/0/keys = {
 "Net",
 "Player_damager",
 ]]
-rotation = 3.14159
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
 
@@ -36,7 +35,6 @@ script = ExtResource( 2 )
 ]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-visible = false
 shape = SubResource( 1 )
 
 [node name="Destroy_timer" type="Timer" parent="."]
@@ -46,4 +44,5 @@ autostart = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "rotation"
 anims/rotation = SubResource( 2 )
+[connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
 [connection signal="timeout" from="Destroy_timer" to="." method="_on_Destroy_timer_timeout"]
