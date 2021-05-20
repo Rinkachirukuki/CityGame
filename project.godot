@@ -26,7 +26,8 @@ Persistent_nodes="*res://Persistent_nodes.tscn"
 
 [display]
 
-window/size/width=800
+window/size/width=500
+window/size/height=400
 window/size/test_width=800
 window/size/test_height=600
 window/stretch/mode="2d"
@@ -107,6 +108,17 @@ SecondAttack={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="PlayerHurtbox"
 2d_physics/layer_4="EnemyHurtbox"
+
+[network]
+
+limits/websocket_client/max_in_buffer_kb=128
+limits/websocket_client/max_in_packets=2048
+limits/websocket_client/max_out_buffer_kb=128
+limits/websocket_client/max_out_packets=2048
+limits/websocket_server/max_in_buffer_kb=128
+limits/websocket_server/max_in_packets=2048
+limits/websocket_server/max_out_buffer_kb=128
+limits/websocket_server/max_out_packets=2048
 
 [rendering]
 
